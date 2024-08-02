@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clothing Shop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h3> </h3>
+    </header>
+    <main>
+        <section id="clothes-info">
+            <div class="info-container">
+                <div class="info-image">
+                    <img src="clothes_nologo.jpg" alt="Clothing Item" onclick="openLightbox(this)">
+                </div>
+                <div class="info-text">
+                    <h2>短袖印花T恤</h2>
+                    <p>颜色：乳白色</p>
+                    <p>面料组成: 100%棉</p>
+                </div>
+            </div>
+        </section>
+        <section id="gallery">
+            <h3>穿着展示及模特信息</h3>
+            <p>点击图片可以放大，点击左右侧按钮可以左右切换<p>
+            <div class="gallery-container" id="gallery-container">
+                <div class="gallery-item" onclick="openLightbox(this.children[0])">
+                    <img src="1.jpg" alt="Clothing Image 1 high thin h">
+                    <p>172cm 50kg</p>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this.children[0])">
+                    <img src="2.jpg" alt="Clothing Image 2 high fat O">
+                    <p>169cm 70kg</p>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this.children[0])">
+                    <img src="3.jpg" alt="Clothing Image 3 short fat H">
+                    <p>159cm 59kg</p>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this.children[0])">
+                    <img src="4.jpg" alt="Clothing Image 4 short fat A">
+                    <p>160cm 55kg</p>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this.children[0])">
+                    <img src="5.jpg" alt="Clothing Image 5 short fat O">
+                    <p>155cm 60kg</p>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this.children[0])">
+                    <img src="6.jpg" alt="Clothing Image 6 short thin h">
+                    <p>158cm 45kg</p>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this.children[0])">
+                    <img src="7.jpg" alt="Clothing Image 7 short thin X">
+                    <p>157cm 52kg</p>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this.children[0])">
+                    <img src="8.jpg" alt="Clothing Image 8 short thin A">
+                    <p>155cm 47kg</p>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this.children[0])">
+                    <img src="9.jpg" alt="Clothing Image 9 high fat A">
+                    <p>167cm 63kg</p>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this.children[0])">
+                    <img src="10.jpg" alt="Clothing Image 10 high fat H">
+                    <p>166cm 65kg</p>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this.children[0])">
+                    <img src="11.jpg" alt="Clothing Image 11 high thin X">
+                    <p>168cm 45kg</p>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this.children[0])">
+                    <img src="12.jpg" alt="Clothing Image 12 high thin A">
+                    <p>165cm 52kg</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <div id="lightbox" class="lightbox">
+        <span class="close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+        <a class="prev">&#10094;</a>
+        <a class="next">&#10095;</a>
+    </div>
+    <script>
+        // 打开 Lightbox 并显示大图
+        function openLightbox(img) {
+            var lightbox = document.getElementById('lightbox');
+            var lightboxImg = document.getElementById('lightbox-img');
+
+            lightboxImg.src = img.src;
+            lightbox.style.display = 'block';
+        }
+
+        // 关闭 Lightbox
+        document.querySelector('.close').addEventListener('click', function () {
+            document.getElementById('lightbox').style.display = 'none';
+        });
+
+        // 上一张图片
+        document.querySelector('.prev').addEventListener('click', function () {
+            var currentImg = document.getElementById('lightbox-img');
+            var galleryItems = document.querySelectorAll('.gallery-item img');
+
+            for (var i = 0; i < galleryItems.length; i++) {
+                if (galleryItems[i].src === currentImg.src) {
+                    if (i > 0) {
+                        currentImg.src = galleryItems[i - 1].src;
+                    } else {
+                        currentImg.src = galleryItems[galleryItems.length - 1].src;
+                    }
+                    break;
+                }
+            }
+        });
+
+        // 下一张图片
+        document.querySelector('.next').addEventListener('click', function () {
+            var currentImg = document.getElementById('lightbox-img');
+            var galleryItems = document.querySelectorAll('.gallery-item img');
+
+            for (var i = 0; i < galleryItems.length; i++) {
+                if (galleryItems[i].src === currentImg.src) {
+                    if (i < galleryItems.length - 1) {
+                        currentImg.src = galleryItems[i + 1].src;
+                    } else {
+                        currentImg.src = galleryItems[0].src;
+                    }
+                    break;
+                }
+            }
+        });
+
+        // 随机排序画廊项目
+        function shuffleGallery() {
+            var galleryContainer = document.getElementById('gallery-container');
+            var galleryItems = Array.from(galleryContainer.children);
+
+            for (let i = galleryItems.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                galleryContainer.appendChild(galleryItems[j]);
+            }
+        }
+
+        // 页面加载时随机排序画廊项目
+        document.addEventListener('DOMContentLoaded', shuffleGallery);
+    </script>
+</body>
+
+</html>
